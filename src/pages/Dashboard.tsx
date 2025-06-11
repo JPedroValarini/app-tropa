@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  FiGrid, FiArrowLeft
+  FiGrid
 } from 'react-icons/fi';
 import tropaLogo from '../assets/tropa-logo.png';
 import userImg from '../assets/user.png';
@@ -17,9 +17,9 @@ const Dashboard = () => {
 
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard', icon: <FiGrid /> },
-    { path: '/eventos', label: 'Eventos', icon: <img src={eventosSvg} alt="Eventos" style={{ width: 16, height: 16, filter: 'brightness(0) saturate(100%)' }} /> },
-    { path: '/equipes', label: 'Equipes', icon: <img src={teamSvg} alt="Equipes" style={{ width: 16, height: 16, filter: 'brightness(0) saturate(100%)' }} /> },
-    { path: '/inscricoes', label: 'Inscrições', icon: <img src={presonSvg} alt="Inscrições" style={{ width: 16, height: 16, filter: 'brightness(0) saturate(100%)' }} /> },
+    { path: '/dashboard/eventos', label: 'Eventos', icon: <img src={eventosSvg} alt="Eventos" /> },
+    { path: '/dashboard/equipes', label: 'Equipes', icon: <img src={teamSvg} alt="Equipes" /> },
+    { path: '/dashboard/inscricoes', label: 'Inscrições', icon: <img src={presonSvg} alt="Inscrições" /> },
   ];
 
   return (
@@ -33,7 +33,7 @@ const Dashboard = () => {
           <Menu>
             <MenuLabel>Menu</MenuLabel>
             {menuItems.map(({ path, label, icon }) => (
-              <MenuItem key={path} to={path} active={location.pathname === path}>
+              <MenuItem key={path} to={path} $active={location.pathname === path}>
                 {icon}
                 <span>{label}</span>
               </MenuItem>
@@ -64,13 +64,8 @@ const Dashboard = () => {
       </Sidebar>
 
       <MainContent>
-        <WelcomeText>
-          Bem vindo de volta, <strong>Kaique Steck</strong>
-        </WelcomeText>
-
         <PageHeader>
-          <FiArrowLeft size={22} color="#F28A2E" />
-          <span>Eventos</span>
+          <Outlet />
         </PageHeader>
       </MainContent>
     </Container>
@@ -129,14 +124,14 @@ const MenuLabel = styled.span`
   text-transform: uppercase;
 `;
 
-const MenuItem = styled(Link) <{ active: boolean }>`
+const MenuItem = styled(Link) <{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 10px 0 10px 16px;
   font-weight: 600;
-  color: ${({ active }) => (active ? '#FFFFFF' : '#333333')};
-  background: ${({ active }) => (active ? '#CC6237' : 'transparent')};
+  color: ${({ $active }) => ($active ? '#FFFFFF' : '#333333')};
+  background: ${({ $active }) => ($active ? '#CC6237' : 'transparent')};
   text-decoration: none;
   font-size: 14px;
   border-radius: 6px;
@@ -149,12 +144,22 @@ const MenuItem = styled(Link) <{ active: boolean }>`
   }
 
   &:hover {
-    background: ${({ active }) => (active ? '#CC6237' : '#F6F6F6')};
+    background: ${({ $active }) => ($active ? '#CC6237' : '#F6F6F6')};
   }
 
   svg {
     width: 16px;
     height: 16px;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    filter: ${({ $active }) =>
+    $active
+      ? 'brightness(0) invert(1)'
+      : 'brightness(0) saturate(100%)'};
+    transition: filter 0.2s;
   }
 `;
 
@@ -226,27 +231,12 @@ const MainContent = styled.main`
   overflow-y: auto;
 `;
 
-const WelcomeText = styled.div`
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 14px;
-  font-weight: 400;
-  letter-spacing: 0.2px;
-
-  strong {
-    color: #333;
-    font-weight: 600;
-  }
-`;
-
 const PageHeader = styled.div`
-  display: flex;
-  align-items: center;
+  max-width: 80%;
   gap: 8px;
   color: #333;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 22px;
 
   svg {
     cursor: pointer;
