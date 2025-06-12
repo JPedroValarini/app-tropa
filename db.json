@@ -1,0 +1,81 @@
+{
+  "eventos": [
+    {
+      "id": "1",
+      "nome": "Clube do Laço Coração Pantaneiro",
+      "equipes": 10,
+      "status": "Ativo",
+      "data": "09 a 11 de Junho"
+    },
+    {
+      "id": "2",
+      "nome": "Clube do Laço Coração Pantaneiro",
+      "equipes": 10,
+      "status": "Ativo",
+      "data": "09 a 11 de Junho"
+    },
+    {
+      "id": "3",
+      "nome": "Festival de Rodeio Nacional",
+      "equipes": 24,
+      "status": "Encerrado",
+      "data": "15 a 18 de Maio"
+    },
+    {
+      "id": "4",
+      "nome": "Campeonato de Laço Comprido",
+      "equipes": 8,
+      "status": "Ativo",
+      "data": "22 a 25 de Julho"
+    },
+    {
+      "id": "5",
+      "nome": "Torneio de Vaquejada Nordestina",
+      "equipes": 16,
+      "status": "Ativo",
+      "data": "05 a 08 de Agosto"
+    },
+    {
+      "id": "6",
+      "nome": "Clube Pantaneiro",
+      "equipes": 3,
+      "status": "Encerrado",
+      "data": "20 a 28 de Junho"
+    },
+    {
+      "id": "7",
+      "nome": "Clube Vaqueiro",
+      "equipes": 5,
+      "status": "Encerrado",
+      "data": "24 a 28 de Junho"
+    },
+    {
+      "id": "8",
+      "nome": "Clube AA",
+      "equipes": 8,
+      "status": "Ativo",
+      "data": "26 a 28 de Junho"
+    },
+    {
+      "id": "4d3c",
+      "nome": "Festival Boiadero",
+      "equipes": 4,
+      "status": "Ativo",
+      "data": "15/06/2025 a 19/06/2025"
+    },
+    {
+      "id": "0c43",
+      "nome": "Campeonato São Luiz",
+      "equipes": 6,
+      "status": "Ativo",
+      "data": "09/06/2025 a 13/06/2025"
+    },
+    {
+      "id": "2803",
+      "nome": "Campeonato Estadual",
+      "equipes": 3,
+      "status": "Ativo",
+      "data": "16 a 18 de Junho"
+    }
+  ]
+}

@@ -23,9 +23,9 @@ export const WelcomeText = styled.div`
 
 export const Title = styled.h1`
   color: #CC6237;
-  font-size: 26px;
-  font-weight: 500;
-  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
 `;
 
 export const Spacer = styled.div<{ size?: number }>`
@@ -34,7 +34,7 @@ export const Spacer = styled.div<{ size?: number }>`
 
 export const ContentWrapper = styled.div`
   flex: 1;
-  padding: 32px;
+  padding: 28px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -100,23 +100,16 @@ export const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  background: #fff;
+  max-width: 98vw;
 `;
 
 export const TableContainer = styled.div`
   flex: 1;
   overflow: auto;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+  padding: 0 0 0 0;
 `;
 
 export const Table = styled.table`
@@ -155,7 +148,6 @@ export const TableHead = styled.th`
   font-size: 17px;
   font-weight: 400;
   color: #cc481380;
-  border-bottom: 1px solid #F0F0F0;
   position: relative;
 `;
 
@@ -164,7 +156,7 @@ export const TableCell = styled.td<{ primary?: boolean }>`
   color: ${({ primary }) => (primary ? '#000000' : '#555')};
   font-weight: ${({ primary }) => (primary ? 400 : 400)};
   font-size: 14px;
-  border-bottom: 1px solid #F5F5F5;
+  border-bottom: 1px solid #CC62371A;
   transition: color 0.2s ease;
   position: relative;
 `;
@@ -214,7 +206,8 @@ export const Pagination = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
-  padding-top: 16px;
+  padding: 20px 32px 28px 32px;
+  background: transparent;
 `;
 
 export const Header = styled.div`
@@ -223,6 +216,8 @@ export const Header = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 16px;
+  padding: 28px 32px 0 24px;
+  background: transparent;
 `;
 
 export const PageButton = styled.button`
@@ -249,11 +244,100 @@ export const PageButton = styled.button`
   }
 `;
 
-export const PageNumber = styled(PageButton)<{ active?: boolean }>`
+export const PageNumber = styled(PageButton) <{ active?: boolean }>`
   ${({ active }) => active && `
     background-color: #CC6237;
     color: white;
     border-color: #CC6237;
     font-weight: 500;
   `}
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px;
+  min-width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #CC6237;
+    font-size: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 12px;
+    color: #333;
+    font-size: 15px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  button {
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: none;
+    background: #CC6237;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+  }
+
+  button[type="button"] {
+    background: #eee;
+    color: #333;
+  }
+`;
+
+export const DateInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background: #f6f6f6;
+  border-radius: 22px;
+  padding: 8px 16px;
+  margin-top: 4px;
+  gap: 8px;
+`;
+
+export const CalendarIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DateInput = styled.input`
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: #555;
+  flex: 1;
+
+  &::placeholder {
+    color: #b0b0b0;
+    font-size: 15px;
+  }
 `;

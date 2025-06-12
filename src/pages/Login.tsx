@@ -65,7 +65,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
-              minLength={8}
+              minLength={6}
               required
             />
           </FormGroup>
