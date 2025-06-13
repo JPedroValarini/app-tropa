@@ -125,14 +125,43 @@ export default function Inscricoes() {
           <Header>
             <Title>Eventos e Inscrições</Title>
             <Actions>
-              <SearchInput
-                placeholder="Buscar eventos..."
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setPage(1);
-                }}
-              />
+              <div style={{ position: "relative" }}>
+                <SearchInput
+                  placeholder="Buscar eventos..."
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setPage(1);
+                  }}
+                  style={{
+                    paddingLeft: "36px",
+                  }}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "#bbb",
+                    pointerEvents: "none",
+                  }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    fill="none"
+                    stroke="#bbb"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+              </div>
             </Actions>
           </Header>
 
