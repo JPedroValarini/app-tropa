@@ -284,7 +284,7 @@ export default function Equipes() {
               <TableBody>
                 {equipesPaginadas.map((equipe) => (
                   <TableRow key={equipe.id}>
-                    <TableCell primary>{equipe.nome}</TableCell>
+                    <TableCell $primary>{equipe.nome}</TableCell>
                     <TableCell>{equipe.responsavel}</TableCell>
                     <TableCell>{equipe.cidade}</TableCell>
                     <TableCell>{equipe.status}</TableCell>
@@ -326,7 +326,7 @@ export default function Equipes() {
             {Array.from({ length: totalPaginas }, (_, i) => (
               <PageNumber
                 key={i + 1}
-                active={page === i + 1}
+                $active={page === i + 1}
                 onClick={() => handlePageChange(i + 1)}
               >
                 {i + 1}
