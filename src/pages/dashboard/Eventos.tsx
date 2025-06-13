@@ -1,7 +1,7 @@
 import { MoreVertical, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import TableMenu from "../../components/TableMenu";
-import { getEventos, createEvento } from "../../services/service";
+import { getEventos, createEvento, updateEvento, deleteEvento } from "../../services/service";
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -50,6 +50,8 @@ export default function Eventos() {
   const [page, setPage] = useState(1);
   const [busca, setBusca] = useState('');
   const eventosPorPagina = 4;
+  const [visualizando, setVisualizando] = useState(false);
+  const [editandoId, setEditandoId] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [novoEvento, setNovoEvento] = useState({
     nome: "",
@@ -107,6 +109,48 @@ export default function Eventos() {
     setMenuOpenId((prevId) => (prevId === id ? null : id));
   };
 
+  interface HandleEditarEvento {
+    id: number;
+    nome: string;
+    equipes: number;
+    status: string;
+    data: string;
+  }
+
+  const handleEditar = (evento: HandleEditarEvento) => {
+    setNovoEvento({
+      nome: evento.nome,
+      equipes: String(evento.equipes),
+      status: evento.status,
+      data: evento.data,
+    });
+    setEditandoId(evento.id);
+    setShowModal(true);
+  };
+
+  const handleRemover = async (id: number) => {
+    await deleteEvento(id);
+    getEventos().then(setEventos);
+  };
+
+  interface HandleVisualizarEvento {
+    nome: string;
+    equipes: number;
+    status: string;
+    data: string;
+  }
+
+  const handleVisualizar = (evento: HandleVisualizarEvento) => {
+    setNovoEvento({
+      nome: evento.nome,
+      equipes: String(evento.equipes),
+      status: evento.status,
+      data: evento.data,
+    });
+    setVisualizando(true);
+    setShowModal(true);
+  };
+
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPaginas) setPage(newPage);
   };
@@ -120,16 +164,29 @@ export default function Eventos() {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
-                await createEvento({
-                  ...novoEvento,
-                  equipes: Number(novoEvento.equipes),
-                  data: formatarDataIntervalo(range[0].startDate, range[0].endDate),
-                });
+                if (visualizando) {
+                  setShowModal(false);
+                  setVisualizando(false);
+                  setEditandoId(null);
+                  return;
+                }
+                if (editandoId) {
+                  await updateEvento(editandoId, {
+                    ...novoEvento,
+                    equipes: Number(novoEvento.equipes),
+                    data: formatarDataIntervalo(range[0].startDate, range[0].endDate),
+                  });
+                } else {
+                  await createEvento({
+                    ...novoEvento,
+                    equipes: Number(novoEvento.equipes),
+                    data: formatarDataIntervalo(range[0].startDate, range[0].endDate),
+                  });
+                }
                 setShowModal(false);
+                setEditandoId(null);
                 setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
-                getEventos()
-                  .then(setEventos)
-                  .catch(() => setEventos([]));
+                getEventos().then(setEventos);
               }}
             >
               <label>
@@ -216,8 +273,19 @@ export default function Eventos() {
                 )}
               </label>
               <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
-                <button type="submit">Salvar</button>
-                <button type="button" onClick={() => setShowModal(false)}>Cancelar</button>
+                {!visualizando && (
+                  <button type="submit">Salvar</button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowModal(false);
+                    setVisualizando(false);
+                    setEditandoId(null);
+                  }}
+                >
+                  {visualizando ? "Fechar" : "Cancelar"}
+                </button>
               </div>
             </form>
           </ModalContent>
@@ -284,9 +352,9 @@ export default function Eventos() {
                       </ActionButton>
                       {menuOpenId === evento.id && (
                         <TableMenu
-                          onVisualizar={() => { }}
-                          onEditar={() => { }}
-                          onRemover={() => { }}
+                          onVisualizar={() => handleVisualizar(evento)}
+                          onEditar={() => handleEditar(evento)}
+                          onRemover={() => handleRemover(evento.id)}
                         />
                       )}
                     </TableCell>

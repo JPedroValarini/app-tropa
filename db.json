@@ -64,18 +64,11 @@
       "data": "15/06/2025 a 19/06/2025"
     },
     {
-      "id": "0c43",
-      "nome": "Campeonato São Luiz",
+      "nome": "Campeonato São Luiz teste",
       "equipes": 6,
       "status": "Ativo",
-      "data": "09/06/2025 a 13/06/2025"
-    },
-    {
-      "id": "2803",
-      "nome": "Campeonato Estadual",
-      "equipes": 3,
-      "status": "Ativo",
-      "data": "16 a 18 de Junho"
+      "data": "12 a 14 de Junho",
+      "id": "0c43"
     }
   ]
 }
