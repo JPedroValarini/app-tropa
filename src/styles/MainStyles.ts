@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from "styled-components";
 
 export const Container = styled.div`
   flex: 1;
@@ -339,5 +339,212 @@ export const DateInput = styled.input`
   &::placeholder {
     color: #b0b0b0;
     font-size: 15px;
+  }
+`;
+
+
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+export const EventosGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+  animation: ${fadeIn} 0.5s ease-out;
+`;
+
+export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-left: 4px solid;
+  position: relative;
+  overflow: hidden;
+  
+  ${({ status }) =>
+    status === 'ativo' ? css`
+      border-color: #4CAF50;
+      &:hover { box-shadow: 0 6px 24px rgba(76, 175, 80, 0.15); }
+    ` :
+      status === 'breve' ? css`
+      border-color: #FFC107;
+      &:hover { box-shadow: 0 6px 24px rgba(255, 193, 7, 0.15); }
+    ` : css`
+      border-color: #F44336;
+      &:hover { box-shadow: 0 6px 24px rgba(244, 67, 54, 0.15); }
+    `}
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+      ${({ status }) =>
+    status === 'ativo' ? '#4CAF50' :
+      status === 'breve' ? '#FFC107' : '#F44336'}, 
+      transparent);
+    opacity: 0.2;
+  }
+`;
+
+export const EventoHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+
+  small {
+    color: #888;
+    font-size: 13px;
+    display: block;
+    margin-top: 4px;
+  }
+`;
+
+export const EventoNome = styled.h3`
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+`;
+
+export const EventoStatus = styled.span<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  ${({ status }) =>
+    status === 'ativo' ? css`
+      background: rgba(76, 175, 80, 0.1);
+      color: #4CAF50;
+    ` :
+      status === 'breve' ? css`
+      background: rgba(255, 193, 7, 0.1);
+      color: #FFA000;
+    ` : css`
+      background: rgba(244, 67, 54, 0.1);
+      color: #F44336;
+    `}
+`;
+
+export const EquipesContainer = styled.div`
+  border-top: 1px solid #f0f0f0;
+  padding-top: 16px;
+`;
+
+export const EquipesTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+`;
+
+export const BadgeContador = styled.span`
+  background: #CC6237;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+export const NenhumaEquipe = styled.div`
+  color: #bbb;
+  font-size: 14px;
+  text-align: center;
+  padding: 12px 0;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-top: 8px;
+`;
+
+export const EquipesLista = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #CC6237 #f0f0f0;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #CC6237;
+    border-radius: 3px;
+  }
+`;
+
+export const EquipeItem = styled.li`
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba(204, 98, 55, 0.03);
+  }
+`;
+
+export const EquipeNome = styled.span`
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+`;
+
+export const EquipeStatus = styled.span`
+  color: #888;
+  font-size: 12px;
+  background: #f5f5f5;
+  padding: 2px 8px;
+  border-radius: 10px;
+`;
+
+export const LoadingSkeleton = styled.div`
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  border-radius: 16px;
+  height: 200px;
+  animation: pulse 1.5s infinite;
+
+  @keyframes pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 `;

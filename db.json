@@ -2,7 +2,7 @@
   "eventos": [
     {
       "id": "1",
-      "nome": "Clube do Laço Coração Pantaneiro",
+      "nome": "Clube do Laço Coração Cavaleiro",
       "equipes": 10,
       "status": "Ativo",
       "data": "09 a 11 de Junho"
@@ -37,7 +37,7 @@
     },
     {
       "id": "6",
-      "nome": "Clube Pantaneiro",
+      "nome": "Clube Sertanejo",
       "equipes": 3,
       "status": "Encerrado",
       "data": "20 a 28 de Junho"
@@ -80,31 +80,87 @@
       "status": "Ativa"
     },
     {
+      "id": "2",
       "nome": "Equipe do Cerrado",
       "responsavel": "Maria Souza",
       "cidade": "Cuiabá",
-      "status": "Inativa",
-      "id": "2"
+      "status": "Inativa"
+    },
+    {
+      "id": "3",
+      "nome": "Equipe do Sul",
+      "responsavel": "Carlos Mendes",
+      "cidade": "Porto Alegre",
+      "status": "Ativa"
+    },
+    {
+      "id": "4",
+      "nome": "Equipe do Norte",
+      "responsavel": "Ana Paula",
+      "cidade": "Manaus",
+      "status": "Ativa"
+    },
+    {
+      "id": "5",
+      "nome": "Equipe do Leste",
+      "responsavel": "Ricardo Lima",
+      "cidade": "Vitória",
+      "status": "Inativa"
+    },
+    {
+      "id": "6",
+      "nome": "Equipe do Oeste",
+      "responsavel": "Fernanda Alves",
+      "cidade": "Rio Branco",
+      "status": "Ativa"
+    },
+    {
+      "id": "7",
+      "nome": "Equipe Raiz",
+      "responsavel": "Paulo César",
+      "cidade": "Goiânia",
+      "status": "Ativa"
+    },
+    {
+      "id": "8",
+      "nome": "Equipe do Centro",
+      "responsavel": "Juliana Rocha",
+      "cidade": "Brasília",
+      "status": "Ativa"
+    },
+    {
+      "id": "9",
+      "nome": "Equipe Tropeiros",
+      "responsavel": "Lucas Martins",
+      "cidade": "Curitiba",
+      "status": "Inativa"
+    },
+    {
+      "id": "10",
+      "nome": "Equipe Laço Forte",
+      "responsavel": "Mariana Dias",
+      "cidade": "Belo Horizonte",
+      "status": "Ativa"
     }
   ],
   "inscricoes": [
     {
-      "id": 1,
+      "id": "1",
       "eventoId": 1,
       "equipeId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "eventoId": 1,
       "equipeId": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "eventoId": 2,
       "equipeId": 2
     },
     {
-      "id": 4,
+      "id": "4",
       "eventoId": 2,
       "equipeId": 3
     }
