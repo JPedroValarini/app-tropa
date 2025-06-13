@@ -151,11 +151,6 @@
       "equipeId": 7
     },
     {
-      "id": "9024",
-      "eventoId": 2,
-      "equipeId": 6
-    },
-    {
       "id": "9484",
       "eventoId": null,
       "equipeId": 9
@@ -194,6 +189,21 @@
       "id": "6137",
       "eventoId": null,
       "equipeId": 5
+    },
+    {
+      "id": "34cb",
+      "eventoId": 2,
+      "equipeId": 1
+    },
+    {
+      "id": "8112",
+      "eventoId": 1,
+      "equipeId": 4
+    },
+    {
+      "id": "e138",
+      "eventoId": 3,
+      "equipeId": 2
     }
   ]
 }

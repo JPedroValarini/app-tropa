@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEventos } from "../../services/service";
 import { getEquipes } from "../../services/equipesService";
-import { getInscricoes, deleteInscricao } from "../../services/inscricoesService";
+import { getInscricoes, deleteInscricao, createInscricao } from "../../services/inscricoesService";
 import {
   Container,
   ContentWrapper,
@@ -13,7 +13,9 @@ import {
   TableContainer,
   Pagination,
   PageButton,
-  PageNumber
+  PageNumber,
+  ModalOverlay,
+  ModalContent
 } from "../../styles/MainStyles";
 import EventoCard from "../../components/EventoCard";
 
@@ -48,6 +50,9 @@ export default function Inscricoes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
+  const [showAdicionarEquipe, setShowAdicionarEquipe] = useState(false);
+  const [eventoParaAdicionar, setEventoParaAdicionar] = useState<EventoComEquipes | null>(null);
+  const [equipeSelecionada, setEquipeSelecionada] = useState<string>("");
 
   useEffect(() => {
     const carregarDados = async () => {
@@ -93,6 +98,30 @@ export default function Inscricoes() {
     carregarDados();
   }, []);
 
+  const equipesDisponiveis = eventoParaAdicionar
+    ? equipes.filter(
+      eq => !eventoParaAdicionar.equipesInscritas.some(insc => String(insc.id) === String(eq.id))
+    )
+    : [];
+
+  const handleOpenAdicionarEquipe = (evento: EventoComEquipes) => {
+    setEventoParaAdicionar(evento);
+    setEquipeSelecionada("");
+    setShowAdicionarEquipe(true);
+  };
+
+  const handleAdicionarEquipe = async () => {
+    if (!eventoParaAdicionar || !equipeSelecionada) return;
+    await createInscricao({
+      eventoId: Number(eventoParaAdicionar.id),
+      equipeId: Number(equipeSelecionada),
+    });
+    setShowAdicionarEquipe(false);
+    setEventoParaAdicionar(null);
+    setEquipeSelecionada("");
+    getInscricoes().then(setInscricoes);
+  };
+
   const getEventosComEquipes = (): EventoComEquipes[] => {
     return eventos
       .filter(evento =>
@@ -131,6 +160,52 @@ export default function Inscricoes() {
 
   return (
     <Container>
+      {showAdicionarEquipe && (
+        <ModalOverlay>
+          <ModalContent>
+            <h3>Adicionar equipe ao evento</h3>
+            <div style={{ marginBottom: 12 }}>
+              <strong>{eventoParaAdicionar?.nome}</strong>
+            </div>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                handleAdicionarEquipe();
+              }}
+            >
+              <select
+                value={equipeSelecionada}
+                onChange={e => setEquipeSelecionada(e.target.value)}
+                required
+                style={{ width: "100%", marginBottom: 16 }}
+              >
+                <option value="">Selecione a equipe</option>
+                {equipesDisponiveis.map(eq => (
+                  <option key={eq.id} value={eq.id}>
+                    {eq.nome}
+                  </option>
+                ))}
+              </select>
+              <div style={{ display: "flex", gap: 12 }}>
+                <button type="submit" disabled={!equipeSelecionada}>
+                  Adicionar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAdicionarEquipe(false);
+                    setEventoParaAdicionar(null);
+                    setEquipeSelecionada("");
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
       <ContentWrapper>
         <TableWrapper>
           <Header>
@@ -196,7 +271,7 @@ export default function Inscricoes() {
                 padding: '16px'
               }}>
                 {eventosPaginados.map((evento) => (
-                  <EventoCard key={evento.id} evento={evento} onRemoveEquipe={handleRemoverInscricao} />
+                  <EventoCard key={evento.id} evento={evento} onRemoveEquipe={handleRemoverInscricao} onOpenAdicionarEquipe={() => handleOpenAdicionarEquipe(evento)} />
                 ))}
               </div>
             )}

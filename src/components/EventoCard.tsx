@@ -47,6 +47,7 @@ const EquipeInfo = styled.span`
 const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
   margin-bottom: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
@@ -150,6 +151,7 @@ type EventoCardProps = {
     }[];
   };
   onRemoveEquipe: (eventoId: string | number, equipeId: string | number) => void;
+  onOpenAdicionarEquipe: () => void;
 };
 function normalizarStatus(status: string | undefined) {
   if (!status) return undefined;
@@ -159,12 +161,22 @@ function normalizarStatus(status: string | undefined) {
   return undefined;
 }
 
-export default function EventoCard({ evento, onRemoveEquipe }: EventoCardProps) {
+export default function EventoCard({ evento, onRemoveEquipe, onOpenAdicionarEquipe }: EventoCardProps) {
   const statusNormalizado = normalizarStatus(evento.status);
 
   return (
-    <Card status={statusNormalizado}>
-      <CardHeader>
+    <Card
+      status={statusNormalizado}
+      onClick={e => {
+        if (
+          (e.target as HTMLElement).tagName !== "BUTTON" &&
+          (e.target as HTMLElement).tagName !== "svg"
+        ) {
+          onOpenAdicionarEquipe();
+        }
+      }}
+    >
+      <CardHeader title="Adicionar">
         <div>
           <CardTitle>{evento.nome}</CardTitle>
           <CardDate>{evento.data}</CardDate>
@@ -197,7 +209,7 @@ export default function EventoCard({ evento, onRemoveEquipe }: EventoCardProps) 
                   )}
                 </EquipeInfo>
                 <RemoverButton
-                  title="Remover inscrição"
+                  title="Remover"
                   onClick={e => {
                     e.stopPropagation();
                     onRemoveEquipe(evento.id, equipe.id);
