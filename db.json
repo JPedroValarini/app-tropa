@@ -141,24 +141,9 @@
       "equipeId": 2
     },
     {
-      "id": "4",
-      "eventoId": 2,
-      "equipeId": 3
-    },
-    {
       "id": "dd07",
       "eventoId": 4,
       "equipeId": 7
-    },
-    {
-      "id": "9484",
-      "eventoId": null,
-      "equipeId": 9
-    },
-    {
-      "id": "d43a",
-      "eventoId": null,
-      "equipeId": 9
     },
     {
       "id": "a676",
@@ -166,44 +151,54 @@
       "equipeId": 9
     },
     {
-      "id": "71f4",
-      "eventoId": null,
-      "equipeId": 3
-    },
-    {
-      "id": "8407",
-      "eventoId": null,
-      "equipeId": 2
-    },
-    {
-      "id": "3462",
-      "eventoId": null,
-      "equipeId": 2
-    },
-    {
-      "id": "c43a",
-      "eventoId": null,
-      "equipeId": 3
-    },
-    {
-      "id": "6137",
-      "eventoId": null,
-      "equipeId": 5
-    },
-    {
       "id": "34cb",
       "eventoId": 2,
       "equipeId": 1
     },
     {
-      "id": "8112",
+      "id": "e138",
+      "eventoId": 3,
+      "equipeId": 2
+    },
+    {
+      "id": "a521",
+      "eventoId": 5,
+      "equipeId": 1
+    },
+    {
+      "id": "87c1",
+      "eventoId": 1,
+      "equipeId": 3
+    },
+    {
+      "id": "5024",
+      "eventoId": 4,
+      "equipeId": 2
+    },
+    {
+      "id": "5ad9",
+      "eventoId": 4,
+      "equipeId": 4
+    },
+    {
+      "id": "6535",
+      "eventoId": 8,
+      "equipeId": 3
+    },
+    {
+      "id": "a050",
       "eventoId": 1,
       "equipeId": 4
     },
     {
-      "id": "e138",
-      "eventoId": 3,
-      "equipeId": 2
+      "id": "78c9",
+      "eventoId": "1bd3",
+      "equipeId": "6"
+    },
+    {
+      "id": "02f6",
+      "eventoId": "0c43",
+      "equipeId": "3"
     }
   ]
 }

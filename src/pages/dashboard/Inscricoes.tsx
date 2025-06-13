@@ -111,11 +111,22 @@ export default function Inscricoes() {
   };
 
   const handleAdicionarEquipe = async () => {
-    if (!eventoParaAdicionar || !equipeSelecionada) return;
-    await createInscricao({
-      eventoId: Number(eventoParaAdicionar.id),
-      equipeId: Number(equipeSelecionada),
-    });
+    if (!eventoParaAdicionar || !equipeSelecionada) {
+      console.warn("Evento ou equipe não selecionados!");
+      return;
+    }
+
+    if (!eventoParaAdicionar.id) {
+      console.error("Evento selecionado sem ID!", eventoParaAdicionar);
+      return;
+    }
+
+    const novaInscricao = {
+      eventoId: eventoParaAdicionar.id,
+      equipeId: equipeSelecionada,
+    };
+
+    await createInscricao(novaInscricao);
     setShowAdicionarEquipe(false);
     setEventoParaAdicionar(null);
     setEquipeSelecionada("");
@@ -150,12 +161,16 @@ export default function Inscricoes() {
 
   const handleRemoverInscricao = async (eventoId: string | number, equipeId: string | number) => {
     const inscricao = inscricoes.find(
-      (i) => String(i.eventoId) === String(eventoId) && String(i.equipeId) === String(equipeId)
+      (i) =>
+        String(i.eventoId) === String(eventoId) &&
+        String(i.equipeId) === String(equipeId)
     );
-    if (inscricao) {
-      await deleteInscricao(Number(inscricao.id));
-      getInscricoes().then(setInscricoes);
+    if (!inscricao) {
+      console.warn("Inscrição não encontrada para deletar!", { eventoId, equipeId });
+      return;
     }
+    await deleteInscricao(inscricao.id);
+    getInscricoes().then(setInscricoes);
   };
 
   return (
@@ -288,7 +303,7 @@ export default function Inscricoes() {
               {Array.from({ length: totalPaginas }, (_, i) => (
                 <PageNumber
                   key={i + 1}
-                  active={page === i + 1}
+                  $active={page === i + 1}
                   onClick={() => handlePageChange(i + 1)}
                 >
                   {i + 1}

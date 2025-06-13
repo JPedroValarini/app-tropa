@@ -151,10 +151,10 @@ export const TableHead = styled.th`
   position: relative;
 `;
 
-export const TableCell = styled.td<{ primary?: boolean }>`
+export const TableCell = styled.td<{ $primary?: boolean }>`
   padding: 16px 24px;
-  color: ${({ primary }) => (primary ? '#000000' : '#555')};
-  font-weight: ${({ primary }) => (primary ? 400 : 400)};
+  color: ${({ $primary }) => ($primary ? '#000000' : '#555')};
+  font-weight: ${({ $primary }) => ($primary ? 400 : 400)};
   font-size: 14px;
   border-bottom: 1px solid #CC62371A;
   transition: color 0.2s ease;
@@ -244,8 +244,8 @@ export const PageButton = styled.button`
   }
 `;
 
-export const PageNumber = styled(PageButton) <{ active?: boolean }>`
-  ${({ active }) => active && `
+export const PageNumber = styled(PageButton) <{ $active?: boolean }>`
+  ${({ $active }) => $active && `
     background-color: #CC6237;
     color: white;
     border-color: #CC6237;

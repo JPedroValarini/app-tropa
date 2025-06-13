@@ -1,7 +1,8 @@
 import { MoreVertical, Plus } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import TableMenu from "../../components/TableMenu";
 import { getEventos, createEvento, updateEvento, deleteEvento } from "../../services/service";
+import { getInscricoes } from "../../services/inscricoesService";
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -39,13 +40,19 @@ import {
 type Evento = {
   id: number;
   nome: string;
-  equipes: number;
   status: string;
   data: string;
 };
 
+type Inscricao = {
+  id: string | number;
+  eventoId: string | number;
+  equipeId: string | number;
+};
+
 export default function Eventos() {
   const [eventos, setEventos] = useState<Evento[]>([]);
+  const [inscricoes, setInscricoes] = useState<Inscricao[]>([]);
   const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
   const [page, setPage] = useState(1);
   const [busca, setBusca] = useState('');
@@ -55,7 +62,6 @@ export default function Eventos() {
   const [showModal, setShowModal] = useState(false);
   const [novoEvento, setNovoEvento] = useState({
     nome: "",
-    equipes: "",
     status: "Ativo",
     data: ""
   });
@@ -74,6 +80,9 @@ export default function Eventos() {
     getEventos()
       .then(setEventos)
       .catch(() => setEventos([]));
+    getInscricoes()
+      .then(setInscricoes)
+      .catch(() => setInscricoes([]));
   }, []);
 
   useEffect(() => {
@@ -112,7 +121,6 @@ export default function Eventos() {
   interface HandleEditarEvento {
     id: number;
     nome: string;
-    equipes: number;
     status: string;
     data: string;
   }
@@ -120,7 +128,6 @@ export default function Eventos() {
   const handleEditar = (evento: HandleEditarEvento) => {
     setNovoEvento({
       nome: evento.nome,
-      equipes: String(evento.equipes),
       status: evento.status,
       data: evento.data,
     });
@@ -135,7 +142,6 @@ export default function Eventos() {
 
   interface HandleVisualizarEvento {
     nome: string;
-    equipes: number;
     status: string;
     data: string;
   }
@@ -143,7 +149,6 @@ export default function Eventos() {
   const handleVisualizar = (evento: HandleVisualizarEvento) => {
     setNovoEvento({
       nome: evento.nome,
-      equipes: String(evento.equipes),
       status: evento.status,
       data: evento.data,
     });
@@ -154,6 +159,10 @@ export default function Eventos() {
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPaginas) setPage(newPage);
   };
+
+  // Função simples para contar equipes por evento
+  const getTotalEquipes = (eventoId: string | number) =>
+    inscricoes.filter(insc => String(insc.eventoId) === String(eventoId)).length;
 
   return (
     <Container>
@@ -173,19 +182,17 @@ export default function Eventos() {
                 if (editandoId) {
                   await updateEvento(editandoId, {
                     ...novoEvento,
-                    equipes: Number(novoEvento.equipes),
                     data: formatarDataIntervalo(range[0].startDate, range[0].endDate),
                   });
                 } else {
                   await createEvento({
                     ...novoEvento,
-                    equipes: Number(novoEvento.equipes),
                     data: formatarDataIntervalo(range[0].startDate, range[0].endDate),
                   });
                 }
                 setShowModal(false);
                 setEditandoId(null);
-                setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
+                setNovoEvento({ nome: "", status: "Ativo", data: "" });
                 getEventos().then(setEventos);
               }}
             >
@@ -194,15 +201,6 @@ export default function Eventos() {
                 <input
                   value={novoEvento.nome}
                   onChange={e => setNovoEvento({ ...novoEvento, nome: e.target.value })}
-                  required
-                />
-              </label>
-              <label>
-                Equipes:
-                <input
-                  type="number"
-                  value={novoEvento.equipes}
-                  onChange={e => setNovoEvento({ ...novoEvento, equipes: e.target.value })}
                   required
                 />
               </label>
@@ -337,8 +335,8 @@ export default function Eventos() {
               <TableBody>
                 {eventosPaginados.map((evento) => (
                   <TableRow key={evento.id}>
-                    <TableCell primary>{evento.nome}</TableCell>
-                    <TableCell>{evento.equipes}</TableCell>
+                    <TableCell $primary>{evento.nome}</TableCell>
+                    <TableCell>{getTotalEquipes(evento.id)}</TableCell>
                     <TableCell>
                       <Status active={evento.status === "Ativo"}>
                         <StatusDot active={evento.status === "Ativo"} />
@@ -373,7 +371,7 @@ export default function Eventos() {
             {Array.from({ length: totalPaginas }, (_, i) => (
               <PageNumber
                 key={i + 1}
-                active={page === i + 1}
+                $active={page === i + 1}
                 onClick={() => handlePageChange(i + 1)}
               >
                 {i + 1}

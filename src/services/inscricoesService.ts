@@ -6,8 +6,8 @@ export async function getInscricoes() {
   return res.json();
 }
 
-export async function createInscricao(inscricao: { eventoId: number; equipeId: number }) {
-  const res = await fetch(API_URL, {
+export async function createInscricao(inscricao: { eventoId: string | number; equipeId: string | number }) {
+  const res = await fetch("http://localhost:3001/inscricoes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(inscricao),
@@ -16,8 +16,8 @@ export async function createInscricao(inscricao: { eventoId: number; equipeId: n
   return res.json();
 }
 
-export async function deleteInscricao(id: number) {
-  const res = await fetch(`${API_URL}/${id}`, {
+export async function deleteInscricao(id: string | number) {
+  const res = await fetch(`http://localhost:3001/inscricoes/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Erro ao deletar inscrição");
