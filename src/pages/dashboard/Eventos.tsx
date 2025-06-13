@@ -63,6 +63,7 @@ export default function Eventos() {
   const [novoEvento, setNovoEvento] = useState({
     nome: "",
     status: "Ativo",
+    equipes: 0,
     data: ""
   });
   const [range, setRange] = useState([
@@ -130,6 +131,7 @@ export default function Eventos() {
       nome: evento.nome,
       status: evento.status,
       data: evento.data,
+      equipes: 0,
     });
     setEditandoId(evento.id);
     setShowModal(true);
@@ -151,6 +153,7 @@ export default function Eventos() {
       nome: evento.nome,
       status: evento.status,
       data: evento.data,
+      equipes: 0,
     });
     setVisualizando(true);
     setShowModal(true);
@@ -160,7 +163,6 @@ export default function Eventos() {
     if (newPage >= 1 && newPage <= totalPaginas) setPage(newPage);
   };
 
-  // Função simples para contar equipes por evento
   const getTotalEquipes = (eventoId: string | number) =>
     inscricoes.filter(insc => String(insc.eventoId) === String(eventoId)).length;
 
@@ -192,7 +194,7 @@ export default function Eventos() {
                 }
                 setShowModal(false);
                 setEditandoId(null);
-                setNovoEvento({ nome: "", status: "Ativo", data: "" });
+                setNovoEvento({ nome: "", status: "Ativo", data: "", equipes: 0 });
                 getEventos().then(setEventos);
               }}
             >
