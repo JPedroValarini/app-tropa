@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEventos } from "../../services/service";
 import { getEquipes } from "../../services/equipesService";
-import { getInscricoes } from "../../services/inscricoesService";
+import { getInscricoes, deleteInscricao } from "../../services/inscricoesService";
 import {
   Container,
   ContentWrapper,
@@ -119,6 +119,16 @@ export default function Inscricoes() {
     setPage(newPage);
   };
 
+  const handleRemoverInscricao = async (eventoId: string | number, equipeId: string | number) => {
+    const inscricao = inscricoes.find(
+      (i) => String(i.eventoId) === String(eventoId) && String(i.equipeId) === String(equipeId)
+    );
+    if (inscricao) {
+      await deleteInscricao(Number(inscricao.id));
+      getInscricoes().then(setInscricoes);
+    }
+  };
+
   return (
     <Container>
       <ContentWrapper>
@@ -186,7 +196,7 @@ export default function Inscricoes() {
                 padding: '16px'
               }}>
                 {eventosPaginados.map((evento) => (
-                  <EventoCard key={evento.id} evento={evento} />
+                  <EventoCard key={evento.id} evento={evento} onRemoveEquipe={handleRemoverInscricao} />
                 ))}
               </div>
             )}

@@ -54,7 +54,7 @@ const Header = styled.div`
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #CC6237;
   margin: 0;
   position: relative;
   
@@ -409,7 +409,7 @@ export default function DashboardHome() {
                     </ListCardDetail>
                     <ListCardFooter>
                       <ListCardStat>
-                        <span>{evento.qtdEquipes}</span> equipes inscritas
+                        <span>{evento.qtdEquipes}</span> Equipes inscritas
                       </ListCardStat>
                     </ListCardFooter>
                   </ListCard>

@@ -1,11 +1,11 @@
 {
   "eventos": [
     {
-      "id": "1",
       "nome": "Clube do Laço Coração Cavaleiro",
       "equipes": 10,
       "status": "Ativo",
-      "data": "09 a 11 de Junho"
+      "data": "13 a 15 de Junho",
+      "id": "1"
     },
     {
       "id": "2",
@@ -62,6 +62,13 @@
       "status": "Ativo",
       "data": "12 a 14 de Junho",
       "id": "0c43"
+    },
+    {
+      "id": "1bd3",
+      "nome": "Clube Joao",
+      "equipes": 2,
+      "status": "Ativo",
+      "data": "13 a 17 de Junho"
     }
   ],
   "equipes": [
@@ -120,13 +127,6 @@
       "responsavel": "Juliana Rocha",
       "cidade": "Brasília",
       "status": "Ativa"
-    },
-    {
-      "id": "9",
-      "nome": "Equipe Tropeiros",
-      "responsavel": "Lucas Martins",
-      "cidade": "Curitiba",
-      "status": "Inativa"
     }
   ],
   "inscricoes": [
@@ -134,11 +134,6 @@
       "id": "1",
       "eventoId": 1,
       "equipeId": 1
-    },
-    {
-      "id": "2",
-      "eventoId": 1,
-      "equipeId": 2
     },
     {
       "id": "3",

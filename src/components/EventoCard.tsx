@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Trash2 } from "lucide-react";
 
 const Card = styled.div<{ status?: 'ativo' | 'encerrado' }>`
   background: #fff;
@@ -20,6 +21,27 @@ const Card = styled.div<{ status?: 'ativo' | 'encerrado' }>`
   &:hover {
     transform: translateY(-2px);
   }
+`;
+
+const RemoverButton = styled.button`
+  background: none;
+  border: none;
+  padding: 2px;
+  margin-left: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #CC6237;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #a13e1d;
+  }
+`;
+
+const EquipeInfo = styled.span`
+  display: flex;
+  flex-direction: column;
 `;
 
 const CardHeader = styled.div`
@@ -127,6 +149,7 @@ type EventoCardProps = {
       membros?: number;
     }[];
   };
+  onRemoveEquipe: (eventoId: string | number, equipeId: string | number) => void;
 };
 function normalizarStatus(status: string | undefined) {
   if (!status) return undefined;
@@ -136,7 +159,7 @@ function normalizarStatus(status: string | undefined) {
   return undefined;
 }
 
-export default function EventoCard({ evento }: EventoCardProps) {
+export default function EventoCard({ evento, onRemoveEquipe }: EventoCardProps) {
   const statusNormalizado = normalizarStatus(evento.status);
 
   return (
@@ -150,8 +173,8 @@ export default function EventoCard({ evento }: EventoCardProps) {
           {statusNormalizado === "ativo"
             ? "Ativo"
             : statusNormalizado === "encerrado"
-            ? "Encerrado"
-            : ""}
+              ? "Encerrado"
+              : ""}
         </StatusBadge>
       </CardHeader>
 
@@ -167,8 +190,21 @@ export default function EventoCard({ evento }: EventoCardProps) {
           <EquipesLista>
             {evento.equipesInscritas.map((equipe) => (
               <EquipeItem key={equipe.id}>
-                <span>{equipe.nome}</span>
-                <EquipeMembros>{equipe.membros} membros</EquipeMembros>
+                <EquipeInfo>
+                  <span>{equipe.nome}</span>
+                  {typeof equipe.membros === "number" && (
+                    <EquipeMembros>{equipe.membros} membros</EquipeMembros>
+                  )}
+                </EquipeInfo>
+                <RemoverButton
+                  title="Remover inscrição"
+                  onClick={e => {
+                    e.stopPropagation();
+                    onRemoveEquipe(evento.id, equipe.id);
+                  }}
+                >
+                  <Trash2 size={16} />
+                </RemoverButton>
               </EquipeItem>
             ))}
           </EquipesLista>
