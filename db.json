@@ -57,13 +57,6 @@
       "data": "26 a 28 de Junho"
     },
     {
-      "id": "4d3c",
-      "nome": "Festival Boiadero",
-      "equipes": 4,
-      "status": "Ativo",
-      "data": "15/06/2025 a 19/06/2025"
-    },
-    {
       "nome": "Campeonato São Luiz teste",
       "equipes": 6,
       "status": "Ativo",
@@ -87,11 +80,11 @@
       "status": "Inativa"
     },
     {
-      "id": "3",
       "nome": "Equipe do Sul",
       "responsavel": "Carlos Mendes",
       "cidade": "Porto Alegre",
-      "status": "Ativa"
+      "status": "Inativa",
+      "id": "3"
     },
     {
       "id": "4",
@@ -156,6 +149,56 @@
       "id": "4",
       "eventoId": 2,
       "equipeId": 3
+    },
+    {
+      "id": "dd07",
+      "eventoId": 4,
+      "equipeId": 7
+    },
+    {
+      "id": "9024",
+      "eventoId": 2,
+      "equipeId": 6
+    },
+    {
+      "id": "9484",
+      "eventoId": null,
+      "equipeId": 9
+    },
+    {
+      "id": "d43a",
+      "eventoId": null,
+      "equipeId": 9
+    },
+    {
+      "id": "a676",
+      "eventoId": 8,
+      "equipeId": 9
+    },
+    {
+      "id": "71f4",
+      "eventoId": null,
+      "equipeId": 3
+    },
+    {
+      "id": "8407",
+      "eventoId": null,
+      "equipeId": 2
+    },
+    {
+      "id": "3462",
+      "eventoId": null,
+      "equipeId": 2
+    },
+    {
+      "id": "c43a",
+      "eventoId": null,
+      "equipeId": 3
+    },
+    {
+      "id": "6137",
+      "eventoId": null,
+      "equipeId": 5
     }
   ]
 }
