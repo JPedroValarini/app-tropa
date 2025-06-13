@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3001/eventos";
+import config from '../config';
+const API_URL = `${config.apiUrl}/eventos`;
 
 export async function getEventos() {
   const res = await fetch(API_URL);

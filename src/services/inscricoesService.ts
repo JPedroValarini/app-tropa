@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3001/inscricoes";
+import config from '../config';
+const API_URL = `${config.apiUrl}/inscricoes`;
 
 export async function getInscricoes() {
   const res = await fetch(API_URL);
