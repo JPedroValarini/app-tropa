@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'https://app-tropa-jpedrovalarinis-projects.vercel.app/'
+  apiUrl: 'https://json-server-api-kv6x.onrender.com/api'
 };
 
 export default config;
