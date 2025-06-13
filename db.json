@@ -70,5 +70,43 @@
       "data": "12 a 14 de Junho",
       "id": "0c43"
     }
+  ],
+  "equipes": [
+    {
+      "id": "1",
+      "nome": "Equipe Pantaneira",
+      "responsavel": "João Silva",
+      "cidade": "Campo Grande",
+      "status": "Ativa"
+    },
+    {
+      "nome": "Equipe do Cerrado",
+      "responsavel": "Maria Souza",
+      "cidade": "Cuiabá",
+      "status": "Inativa",
+      "id": "2"
+    }
+  ],
+  "inscricoes": [
+    {
+      "id": 1,
+      "eventoId": 1,
+      "equipeId": 1
+    },
+    {
+      "id": 2,
+      "eventoId": 1,
+      "equipeId": 2
+    },
+    {
+      "id": 3,
+      "eventoId": 2,
+      "equipeId": 2
+    },
+    {
+      "id": 4,
+      "eventoId": 2,
+      "equipeId": 3
+    }
   ]
 }
