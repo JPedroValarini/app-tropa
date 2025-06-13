@@ -357,7 +357,7 @@ export const EventosGrid = styled.div`
   animation: ${fadeIn} 0.5s ease-out;
 `;
 
-export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' }>`
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -371,10 +371,6 @@ export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' 
     status === 'ativo' ? css`
       border-color: #4CAF50;
       &:hover { box-shadow: 0 6px 24px rgba(76, 175, 80, 0.15); }
-    ` :
-      status === 'breve' ? css`
-      border-color: #FFC107;
-      &:hover { box-shadow: 0 6px 24px rgba(255, 193, 7, 0.15); }
     ` : css`
       border-color: #F44336;
       &:hover { box-shadow: 0 6px 24px rgba(244, 67, 54, 0.15); }
@@ -393,8 +389,7 @@ export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' 
     height: 4px;
     background: linear-gradient(90deg, 
       ${({ status }) =>
-    status === 'ativo' ? '#4CAF50' :
-      status === 'breve' ? '#FFC107' : '#F44336'}, 
+    status === 'ativo' ? '#4CAF50' : '#F44336'}, 
       transparent);
     opacity: 0.2;
   }
@@ -423,7 +418,7 @@ export const EventoNome = styled.h3`
   line-height: 1.4;
 `;
 
-export const EventoStatus = styled.span<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+export const EventoStatus = styled.span<{ status?: 'ativo' | 'encerrado' }>`
   font-size: 12px;
   font-weight: 600;
   padding: 4px 10px;
@@ -435,10 +430,6 @@ export const EventoStatus = styled.span<{ status?: 'ativo' | 'encerrado' | 'brev
     status === 'ativo' ? css`
       background: rgba(76, 175, 80, 0.1);
       color: #4CAF50;
-    ` :
-      status === 'breve' ? css`
-      background: rgba(255, 193, 7, 0.1);
-      color: #FFA000;
     ` : css`
       background: rgba(244, 67, 54, 0.1);
       color: #F44336;

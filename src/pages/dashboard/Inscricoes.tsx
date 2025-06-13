@@ -21,7 +21,7 @@ type Evento = {
   id: number | string;
   nome: string;
   data?: string;
-  status?: 'ativo' | 'encerrado' | 'breve';
+  status?: 'ativo' | 'encerrado';
 };
 
 type Equipe = {
@@ -61,13 +61,14 @@ export default function Inscricoes() {
 
         interface EventoCompleto extends Evento {
           data: string;
-          status: 'ativo' | 'encerrado' | 'breve';
+          status: 'ativo' | 'encerrado';
         }
 
         const eventosCompletos: EventoCompleto[] = eventosData.map((evento: Evento): EventoCompleto => ({
           ...evento,
-          data: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-          status: ['ativo', 'encerrado', 'breve'][Math.floor(Math.random() * 3)] as 'ativo' | 'encerrado' | 'breve'
+
+          data: evento.data ?? '',
+          status: (evento.status as 'ativo' | 'encerrado') ?? 'ativo',
         }));
 
         interface EquipeCompleta extends Equipe {

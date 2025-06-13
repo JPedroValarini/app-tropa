@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Card = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+const Card = styled.div<{ status?: 'ativo' | 'encerrado' }>`
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -12,10 +12,6 @@ const Card = styled.div<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
     status === 'ativo' ? css`
       border-color: #4CAF50;
       &:hover { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15); }
-    ` :
-      status === 'breve' ? css`
-      border-color: #FFC107;
-      &:hover { box-shadow: 0 4px 12px rgba(255, 193, 7, 0.15); }
     ` : css`
       border-color: #F44336;
       &:hover { box-shadow: 0 4px 12px rgba(244, 67, 54, 0.15); }
@@ -48,7 +44,7 @@ const CardDate = styled.small`
   margin-top: 4px;
 `;
 
-const StatusBadge = styled.span<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
+const StatusBadge = styled.span<{ status?: 'ativo' | 'encerrado' }>`
   font-size: 11px;
   padding: 3px 8px;
   border-radius: 10px;
@@ -57,10 +53,6 @@ const StatusBadge = styled.span<{ status?: 'ativo' | 'encerrado' | 'breve' }>`
     status === 'ativo' ? css`
       background: rgba(76, 175, 80, 0.1);
       color: #4CAF50;
-    ` :
-      status === 'breve' ? css`
-      background: rgba(255, 193, 7, 0.1);
-      color: #FFA000;
     ` : css`
       background: rgba(244, 67, 54, 0.1);
       color: #F44336;
@@ -128,7 +120,7 @@ type EventoCardProps = {
     id: number | string;
     nome: string;
     data?: string;
-    status?: 'ativo' | 'encerrado' | 'breve';
+    status?: 'ativo' | 'encerrado';
     equipesInscritas: {
       id: number | string;
       nome: string;
@@ -136,18 +128,30 @@ type EventoCardProps = {
     }[];
   };
 };
+function normalizarStatus(status: string | undefined) {
+  if (!status) return undefined;
+  const s = status.trim().toLowerCase();
+  if (s === "ativo") return "ativo";
+  if (s === "encerrado") return "encerrado";
+  return undefined;
+}
 
 export default function EventoCard({ evento }: EventoCardProps) {
+  const statusNormalizado = normalizarStatus(evento.status);
+
   return (
-    <Card status={evento.status}>
+    <Card status={statusNormalizado}>
       <CardHeader>
         <div>
           <CardTitle>{evento.nome}</CardTitle>
           <CardDate>{evento.data}</CardDate>
         </div>
-        <StatusBadge status={evento.status}>
-          {evento.status === 'ativo' ? 'Ativo' :
-            evento.status === 'breve' ? 'Em breve' : 'Encerrado'}
+        <StatusBadge status={statusNormalizado}>
+          {statusNormalizado === "ativo"
+            ? "Ativo"
+            : statusNormalizado === "encerrado"
+            ? "Encerrado"
+            : ""}
         </StatusBadge>
       </CardHeader>
 

@@ -134,13 +134,6 @@
       "responsavel": "Lucas Martins",
       "cidade": "Curitiba",
       "status": "Inativa"
-    },
-    {
-      "id": "10",
-      "nome": "Equipe Laço Forte",
-      "responsavel": "Mariana Dias",
-      "cidade": "Belo Horizonte",
-      "status": "Ativa"
     }
   ],
   "inscricoes": [
