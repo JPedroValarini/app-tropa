@@ -8,7 +8,7 @@ export async function getInscricoes() {
 }
 
 export async function createInscricao(inscricao: { eventoId: string | number; equipeId: string | number }) {
-  const res = await fetch("http://localhost:3001/inscricoes", {
+  const res = await fetch("https://json-server-api-kv6x.onrender.com/api/inscricoes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(inscricao),
@@ -18,7 +18,7 @@ export async function createInscricao(inscricao: { eventoId: string | number; eq
 }
 
 export async function deleteInscricao(id: string | number) {
-  const res = await fetch(`http://localhost:3001/inscricoes/${id}`, {
+  const res = await fetch(`https://json-server-api-kv6x.onrender.com/api/inscricoes/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Erro ao deletar inscrição");
