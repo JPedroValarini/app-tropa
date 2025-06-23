@@ -1,11 +1,24 @@
 import styled, { css, keyframes } from "styled-components";
 
+const breakpoints = {
+  small: '576px',
+  medium: '768px',
+  large: '992px',
+  xlarge: '1200px'
+};
+
 export const Container = styled.div`
-  flex: 1;
+  flex: 1;  
   display: flex;
   flex-direction: column;
   background-color: #F6F6F6;
   padding: 18px;
+  min-width: 356px;
+
+   @media (max-width: ${breakpoints.medium}) {
+    margin-top: 10px;
+    padding: 0px;
+  }
 `;
 
 export const WelcomeText = styled.div`
@@ -19,6 +32,10 @@ export const WelcomeText = styled.div`
     color: #333;
     font-weight: 600;
   }
+
+  @media (max-width: ${breakpoints.small}) {
+    font-size: 14px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -26,6 +43,10 @@ export const Title = styled.h1`
   font-size: 24px;
   font-weight: 600;
   margin: 0;
+
+  @media (max-width: ${breakpoints.small}) {
+    font-size: 20px;
+  }
 `;
 
 export const Spacer = styled.div<{ size?: number }>`
@@ -38,6 +59,11 @@ export const ContentWrapper = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  min-width: 356px;
+
+  @media (max-width: ${breakpoints.medium}) {
+    padding: 10px;
+  }
 `;
 
 export const Actions = styled.div`
@@ -45,6 +71,11 @@ export const Actions = styled.div`
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
+
+  @media (max-width: ${breakpoints.small}) {
+    gap: 12px;
+    width: 100%;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -66,6 +97,11 @@ export const SearchInput = styled.input`
 
   &::placeholder {
     color: #999;
+  }
+
+  @media (max-width: ${breakpoints.small}) {
+    width: 100%;
+    padding: 10px 16px 10px 36px;
   }
 `;
 
@@ -92,6 +128,11 @@ export const NewButton = styled.button`
 
   &:active {
     transform: translateY(0);
+  }
+
+  @media (max-width: ${breakpoints.small}) {
+    padding: 10px 16px;
+    font-size: 13px;
   }
 `;
 
@@ -208,6 +249,11 @@ export const Pagination = styled.div`
   gap: 8px;
   padding: 20px 32px 28px 32px;
   background: transparent;
+
+  @media (max-width: ${breakpoints.small}) {
+    justify-content: center;
+    padding: 16px;
+  }
 `;
 
 export const Header = styled.div`
@@ -218,6 +264,12 @@ export const Header = styled.div`
   gap: 16px;
   padding: 28px 32px 0 24px;
   background: transparent;
+
+  @media (max-width: ${breakpoints.medium}) {
+    padding: 20px 16px 0 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const PageButton = styled.button`
@@ -241,6 +293,11 @@ export const PageButton = styled.button`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  @media (max-width: ${breakpoints.small}) {
+    padding: 8px 12px;
+    min-width: auto;
   }
 `;
 
@@ -310,6 +367,10 @@ export const ModalContent = styled.div`
     background: #eee;
     color: #333;
   }
+
+  @media (max-width: ${breakpoints.small}) {
+    padding: 20px 16px;
+  }
 `;
 
 export const DateInputWrapper = styled.div`
@@ -355,6 +416,10 @@ export const EventosGrid = styled.div`
   gap: 24px;
   margin-top: 24px;
   animation: ${fadeIn} 0.5s ease-out;
+
+  @media (max-width: ${breakpoints.small}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' }>`
@@ -392,6 +457,10 @@ export const EventoCard = styled.div<{ status?: 'ativo' | 'encerrado' }>`
     status === 'ativo' ? '#4CAF50' : '#F44336'}, 
       transparent);
     opacity: 0.2;
+  }
+
+  @media (max-width: ${breakpoints.small}) {
+    padding: 16px;
   }
 `;
 

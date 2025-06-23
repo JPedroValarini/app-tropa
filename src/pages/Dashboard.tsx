@@ -1,9 +1,7 @@
-
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
-import styled from 'styled-components';
-import {
-  FiGrid
-} from 'react-icons/fi';
+import styled, { css } from 'styled-components';
+import { FiGrid, FiMenu, FiX, FiArrowLeft } from 'react-icons/fi';
 import tropaLogo from '../assets/tropa-logo.png';
 import userImg from '../assets/user.png';
 import presonSvg from '../assets/person.svg';
@@ -14,6 +12,8 @@ import power from '../assets/power.svg';
 const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard', icon: <FiGrid /> },
@@ -22,18 +22,51 @@ const Dashboard = () => {
     { path: '/dashboard/inscricoes', label: 'Inscrições', icon: <img src={presonSvg} alt="Inscrições" /> },
   ];
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <Container>
-      <Sidebar>
+      {isMobile && (
+        <HamburgerButton onClick={toggleSidebar}>
+          {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </HamburgerButton>
+      )}
+
+      <Sidebar $isMobile={isMobile} $sidebarOpen={sidebarOpen}>
         <TopSection>
           <LogoImg src={tropaLogo} alt="Tropa App Logo" />
+          {isMobile && (
+            <CloseButton onClick={toggleSidebar}>
+              <FiArrowLeft size={20} />
+            </CloseButton>
+          )}
         </TopSection>
 
         <MiddleSection>
           <Menu>
             <MenuLabel>Menu</MenuLabel>
             {menuItems.map(({ path, label, icon }) => (
-              <MenuItem key={path} to={path} $active={location.pathname === path}>
+              <MenuItem 
+                key={path} 
+                to={path} 
+                $active={location.pathname === path}
+                onClick={() => isMobile && setSidebarOpen(false)}
+              >
                 {icon}
                 <span>{label}</span>
               </MenuItem>
@@ -63,11 +96,14 @@ const Dashboard = () => {
         </BottomSection>
       </Sidebar>
 
-      <MainContent>
+      <MainContent $sidebarOpen={sidebarOpen} $isMobile={isMobile}>
         <PageHeader>
           <Outlet />
         </PageHeader>
       </MainContent>
+      
+      {/* Overlay for mobile when sidebar is open */}
+      {isMobile && sidebarOpen && <Overlay onClick={toggleSidebar} />}
     </Container>
   );
 };
@@ -78,18 +114,36 @@ const Container = styled.div`
   display: flex;
   min-height: 100vh;
   background: #F6F6F6;
+  position: relative;
 `;
 
-const Sidebar = styled.aside`
+const Sidebar = styled.aside<{ $isMobile: boolean; $sidebarOpen: boolean }>`
   width: 240px;
   background: #FFFFFF;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #EEE;
+  transition: transform 0.3s ease;
+  z-index: 100;
+  
+  ${({ $isMobile, $sidebarOpen }) =>
+    $isMobile &&
+    css`
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      transform: ${$sidebarOpen ? 'translateX(0)' : 'translateX(-100%)'};
+      box-shadow: ${$sidebarOpen ? '2px 0 10px rgba(0, 0, 0, 0.1)' : 'none'};
+    `}
 `;
 
 const TopSection = styled.div`
   padding: 24px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MiddleSection = styled.div`
@@ -124,7 +178,7 @@ const MenuLabel = styled.span`
   text-transform: uppercase;
 `;
 
-const MenuItem = styled(Link) <{ $active: boolean }>`
+const MenuItem = styled(Link)<{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -156,9 +210,9 @@ const MenuItem = styled(Link) <{ $active: boolean }>`
     width: 16px;
     height: 16px;
     filter: ${({ $active }) =>
-    $active
-      ? 'brightness(0) invert(1)'
-      : 'brightness(0) saturate(100%)'};
+      $active
+        ? 'brightness(0) invert(1)'
+        : 'brightness(0) saturate(100%)'};
     transition: filter 0.2s;
   }
 `;
@@ -225,15 +279,24 @@ const FooterButton = styled.button`
   }
 `;
 
-const MainContent = styled.main`
+const MainContent = styled.main<{ $sidebarOpen: boolean; $isMobile: boolean }>`
   flex: 1;
   padding: 32px;
   overflow-y: auto;
+  transition: margin-left 0.3s ease;
+  
+  ${({ $isMobile, $sidebarOpen }) =>
+    $isMobile &&
+    $sidebarOpen &&
+    css`
+      margin-left: 240px;
+    `}
 `;
 
 const PageHeader = styled.div`
   max-width: 80%;
   gap: 8px;
+  margin-top: 18px;
   color: #333;
   font-size: 20px;
   font-weight: 600;
@@ -241,4 +304,38 @@ const PageHeader = styled.div`
   svg {
     cursor: pointer;
   }
+`;
+
+const HamburgerButton = styled.button`
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #333;
+  z-index: 99;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 0px;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
 `;
